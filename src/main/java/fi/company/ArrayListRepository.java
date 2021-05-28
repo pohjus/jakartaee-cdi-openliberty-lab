@@ -7,9 +7,8 @@ import javax.enterprise.inject.*;
 import javax.inject.*;
 import java.io.*;
 
-@SessionScoped
+@ApplicationScoped
 @Named("ArrayList")
-
 // @Default
 public class ArrayListRepository implements CrudRepository, Serializable {
 
