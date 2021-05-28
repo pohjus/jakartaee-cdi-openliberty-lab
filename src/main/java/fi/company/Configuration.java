@@ -8,6 +8,6 @@ public class Configuration {
     @Produces
     @RequestScoped
     public HtmlHelper getInstance() {
-        return new HtmlHelperImpl((int) (Math.random() * 10));
+        return new HtmlHelperImpl(2);
     }
 }

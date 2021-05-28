@@ -13,7 +13,7 @@ import java.util.*;
 public class MyServlet extends HttpServlet {
 
     @Inject
-    @Named("ArrayList")
+    @Named("jdbc")
     CrudRepository repository;
 
     @Inject
