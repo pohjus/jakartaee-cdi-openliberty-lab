@@ -3,17 +3,22 @@ package fi.company;
 import java.util.*;
 import javax.enterprise.context.*;
 import javax.annotation.*;
+import javax.enterprise.inject.*;
+import javax.inject.*;
 
 @ApplicationScoped
+@Named("ArrayList")
+
+// @Default
 public class ArrayListRepository implements CrudRepository {
 
-    List<String> db;
+    private List<String> db;
 
     @PostConstruct
     public void init() {
         db = Collections.synchronizedList(new ArrayList<String>());
-        db.add("Jack");
-        db.add("Tina");
+        db.add("array");
+        db.add("list");
     }
 
     public List<String> getAll() {

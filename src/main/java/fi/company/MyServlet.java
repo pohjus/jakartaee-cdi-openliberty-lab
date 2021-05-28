@@ -13,6 +13,7 @@ import java.util.*;
 public class MyServlet extends HttpServlet {
 
     @Inject
+    @Named("LinkedList")
     CrudRepository repository;
 
     @Inject
