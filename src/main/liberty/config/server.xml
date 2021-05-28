@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="${project.name}">
+
+    <!-- servlet: 24216208 -->
+    <!-- javaee: 107777076 -->
+    <featureManager>
+        <feature>javaee-8.0</feature>
+    </featureManager>
+
+    <httpEndpoint id="defaultHttpEndpoint"
+                  httpPort="8080"
+                  httpsPort="9043"/>
+
+    <webApplication location="${project.artifactId}.war" contextRoot="/">
+    </webApplication>
+</server>
