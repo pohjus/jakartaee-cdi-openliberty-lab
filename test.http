@@ -1,1 +1,10 @@
-get http://localhost:8080/myapp/helloworld
+get http://localhost:8080/myapp/database?name=Tina
+
+
+###
+
+get http://localhost:8080/myapp/database
+
+###
+
+get http://localhost:8080/myapp/test
