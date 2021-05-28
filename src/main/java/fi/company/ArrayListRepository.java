@@ -5,12 +5,13 @@ import javax.enterprise.context.*;
 import javax.annotation.*;
 import javax.enterprise.inject.*;
 import javax.inject.*;
+import java.io.*;
 
-@ApplicationScoped
+@SessionScoped
 @Named("ArrayList")
 
 // @Default
-public class ArrayListRepository implements CrudRepository {
+public class ArrayListRepository implements CrudRepository, Serializable {
 
     private List<String> db;
 
