@@ -9,61 +9,32 @@ import javax.inject.*;
 import java.util.*;
 import java.sql.*;
 import javax.persistence.*;
+import javax.ws.rs.*;
+import javax.inject.*;
+import javax.transaction.*;
 
-@WebListener
 @WebServlet("/test")
 public class TestServlet extends HttpServlet implements ServletContextListener {
 
-    @Override
-    public void contextInitialized(ServletContextEvent contextEvent) {
-        System.out.println("sddssd ready!");
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent contextEvent) {
-        /* Do Shutdown stuff. */
-    }
-
     public void doGet (HttpServletRequest req,
                         HttpServletResponse res) throws ServletException, IOException {
-        test();
         try (PrintWriter out = res.getWriter()) {
             out.println(jdbcConnection());
         }
     }
 
-    public void test() {
-        System.out.println("JPA STUFF");
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("mypersistance");
-
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            Customer p = new Customer();
-            p.setName("jaska");
-            em.persist(p);
-
-            Query query = em.createQuery("Select obj from Customer as obj");
-            List<Customer> customers = query.getResultList();
-            customers.forEach(System.out::println);
-
-            em.getTransaction().commit();
-            em.close();
-        } catch(Exception e) {
-            try {
-                em.getTransaction().rollback();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
     public String jdbcConnection() {
         var result = "";
-        var URL = "jdbc:sqlite:test.db";
-        var CLASS_NAME = "org.sqlite.JDBC";
+        var URL = "jdbc:derby:this-is-my-db;create=true";
+        var CLASS_NAME = "org.apache.derby.jdbc.EmbeddedDriver";
 
-        var CREATE_TABLE = "CREATE TABLE IF NOT EXISTS customers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL)";
+        var CREATE_TABLE = """
+                          CREATE TABLE customers (id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY
+                                                  (START WITH 1, INCREMENT BY 1),
+                                                  name VARCHAR(1024),
+                                                  CONSTRAINT primary_key PRIMARY KEY (id))
+                          """;
+
         var INSERT_SQL = "INSERT INTO customers (name) VALUES ('jack')";
         var SELECT_ALL = "SELECT * FROM customers";
 
@@ -71,7 +42,12 @@ public class TestServlet extends HttpServlet implements ServletContextListener {
             Class.forName(CLASS_NAME);
             try (Connection conn = DriverManager.getConnection(URL);
                 Statement statement = conn.createStatement()) {
-                statement.executeUpdate(CREATE_TABLE);
+
+                try {
+                    statement.executeUpdate(CREATE_TABLE);
+                } catch(SQLException e) {
+                    System.out.println("Table already existed");
+                }
                 statement.executeUpdate(INSERT_SQL);
                 ResultSet rs = statement.executeQuery(SELECT_ALL);
                 while (rs.next()) {
