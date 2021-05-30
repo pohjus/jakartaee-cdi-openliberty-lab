@@ -7,6 +7,7 @@ import javax.enterprise.inject.*;
 import javax.inject.*;
 import java.io.*;
 import java.sql.*;
+import javax.persistence.*;
 
 @ApplicationScoped
 @Named("derby")
@@ -68,5 +69,54 @@ public class DerbyRepository implements CrudRepository {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Customer> getAllCustomers() {
+        List<Customer> customers = null;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("myderbyunit");
+        // Create Entity Manager
+        EntityManager em = emf.createEntityManager();
+        try {
+            // Start transaction
+            em.getTransaction().begin();
+
+            Query query = em.createQuery("Select obj from Customer as obj");
+            customers = query.getResultList();
+            // Select *
+            em.getTransaction().commit();
+            em.close();
+        } catch(Exception e) {
+            try {
+                em.getTransaction().rollback();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return customers;
+    }
+
+    @Override
+    public void save(Customer c) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("myderbyunit");
+        // Create Entity Manager
+        EntityManager em = emf.createEntityManager();
+        try {
+            // Start transaction
+            em.getTransaction().begin();
+            // Insert into
+            em.persist(c);
+            // Select *
+            em.getTransaction().commit();
+            em.close();
+        } catch(Exception e) {
+            try {
+                em.getTransaction().rollback();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+
 
 }

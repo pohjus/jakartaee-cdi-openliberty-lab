@@ -18,8 +18,11 @@ public class TestServlet extends HttpServlet implements ServletContextListener {
 
     public void doGet (HttpServletRequest req,
                         HttpServletResponse res) throws ServletException, IOException {
+
+        saveCustomer(new Customer("Jeppe"));
+
         try (PrintWriter out = res.getWriter()) {
-            out.println(jdbcConnection());
+            out.println("done");
         }
     }
 
@@ -61,4 +64,31 @@ public class TestServlet extends HttpServlet implements ServletContextListener {
 
         return result;
     }
+
+
+    public void saveCustomer(Customer c) {
+        System.out.println("********");
+        // Open persistence.xml and it's unit called "donaldduck"
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("myderbyunit");
+        // Create Entity Manager
+        EntityManager em = emf.createEntityManager();
+        try {
+            // Start transaction
+            em.getTransaction().begin();
+            // Insert into
+            em.persist(new Customer("jack"));
+            // Select *
+            Query query = em.createQuery("Select obj from Customer as obj");
+            List<Customer> customers = query.getResultList();
+            customers.forEach(System.out::println);
+            em.getTransaction().commit();
+            em.close();
+        } catch(Exception e) {
+            try {
+                em.getTransaction().rollback();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+}
 }

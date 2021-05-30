@@ -22,11 +22,11 @@ public class MyServlet extends HttpServlet {
     public void doGet (HttpServletRequest req,
                         HttpServletResponse res) throws ServletException, IOException {
 
-        Optional.ofNullable(req.getParameter("name")).ifPresent((value) -> repository.save(value));
+        Optional.ofNullable(req.getParameter("name")).ifPresent((value) -> repository.save(new Customer(value)));
 
-        String list = repository.getAll()
+        String list = repository.getAllCustomers()
                                 .stream()
-                                .map(name -> "<li>" + name + "</li>")
+                                .map(customer -> "<li>" + customer.getName() + "</li>")
                                 .collect(Collectors.joining(""));
 
         try (PrintWriter out = res.getWriter()) {
