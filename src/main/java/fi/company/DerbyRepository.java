@@ -18,24 +18,24 @@ public class DerbyRepository implements CrudRepository {
 
     @PostConstruct
     public void init() {
-        var CREATE_TABLE = """
-                          CREATE TABLE customers (id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY
-                                                  (START WITH 1, INCREMENT BY 1),
-                                                  name VARCHAR(1024),
-                                                  CONSTRAINT primary_key PRIMARY KEY (id))
-                          """;
-        try {
-            Class.forName(CLASS_NAME);
-            try (Connection conn = DriverManager.getConnection(URL);
-                Statement statement = conn.createStatement()) {
-                statement.executeUpdate(CREATE_TABLE);
-            }
-        } catch(SQLException e) {
-            System.out.println("error code: " + e.getErrorCode());
-            e.printStackTrace();
-        } catch(ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        // var CREATE_TABLE = """
+        //                   CREATE TABLE customers (id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY
+        //                                           (START WITH 1, INCREMENT BY 1),
+        //                                           name VARCHAR(1024),
+        //                                           CONSTRAINT primary_key PRIMARY KEY (id))
+        //                   """;
+        // try {
+        //     Class.forName(CLASS_NAME);
+        //     try (Connection conn = DriverManager.getConnection(URL);
+        //         Statement statement = conn.createStatement()) {
+        //         statement.executeUpdate(CREATE_TABLE);
+        //     }
+        // } catch(SQLException e) {
+        //     System.out.println("error code: " + e.getErrorCode());
+        //     e.printStackTrace();
+        // } catch(ClassNotFoundException e) {
+        //     e.printStackTrace();
+        // }
     }
     public List<String> getAll() {
         List<String> db = Collections.synchronizedList(new ArrayList<String>());
