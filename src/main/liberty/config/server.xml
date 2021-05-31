@@ -14,16 +14,16 @@
     <webApplication location="${project.artifactId}.war" contextRoot="/">
     </webApplication>
 
-   <!-- <library id="derbyJDBCLib">
-      <file name="${shared.resource.dir}/derby-10.14.2.0.jar" />
-  </library> -->
+   <library id="derbyJDBCLib">
+      <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
+   </library>
 
-<!--
-  <dataSource id="eventjpadatasource"
-              jndiName="jdbc/eventjpadatasource">
+
+  <dataSource id="myjndiname"
+              jndiName="jdbc/myjndiname">
       <jdbcDriver libraryRef="derbyJDBCLib" />
-      <properties.derby.embedded databaseName="jussi" createDatabase="create"/>
-  </dataSource> -->
+      <properties.derby.embedded databaseName="this-is-my-db-jta" createDatabase="create"/>
+  </dataSource>
 
 
 </server>

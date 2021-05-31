@@ -14,12 +14,23 @@ import javax.inject.*;
 import javax.transaction.*;
 
 @WebServlet("/test")
+@Transactional
 public class TestServlet extends HttpServlet implements ServletContextListener {
+
+    @PersistenceContext(name = "myderbyunit-jta")
+    EntityManager em;
+
+    public void saveAnotherCustomer(Customer c) {
+        em.persist(new Customer("jack"));
+        Query query = em.createQuery("Select obj from Customer as obj");
+        List<Customer> customers = query.getResultList();
+        customers.forEach(System.out::println);
+    }
 
     public void doGet (HttpServletRequest req,
                         HttpServletResponse res) throws ServletException, IOException {
 
-        saveCustomer(new Customer("Jeppe"));
+        saveAnotherCustomer(new Customer("Jeppe"));
 
         try (PrintWriter out = res.getWriter()) {
             out.println("done");
