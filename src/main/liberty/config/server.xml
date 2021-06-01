@@ -19,10 +19,9 @@
    </library>
 
 
-  <dataSource id="myjndiname"
-              jndiName="jdbc/myjndiname">
+  <dataSource jndiName="jdbc/myDataSource">
       <jdbcDriver libraryRef="derbyJDBCLib" />
-      <properties.derby.embedded databaseName="this-is-my-db-jta" createDatabase="create"/>
+      <properties.derby.embedded databaseName="this-is-my-datasource-db" createDatabase="create"/>
   </dataSource>
 
 

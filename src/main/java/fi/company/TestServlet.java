@@ -79,7 +79,7 @@ public class TestServlet extends HttpServlet implements ServletContextListener {
 
     public void saveCustomer(Customer c) {
         System.out.println("********");
-        // Open persistence.xml and it's unit called "donaldduck"
+        // Open persistenceba.xml and it's unit called "donaldduck"
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("myderbyunit");
         // Create Entity Manager
         EntityManager em = emf.createEntityManager();

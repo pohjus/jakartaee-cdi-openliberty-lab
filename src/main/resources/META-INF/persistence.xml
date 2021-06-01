@@ -4,11 +4,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
                        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <persistence-unit name="jpa" transaction-type="RESOURCE_LOCAL">
+        <class>fi.company.Customer</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:this-is-my-jpa-db;create=true" />
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+        </properties>
+    </persistence-unit>
 
-    <persistence-unit name="myderbyunit-jta" transaction-type="JTA">
-        <jta-data-source>jdbc/myjndiname</jta-data-source>
+    <persistence-unit name="jta-jpa" transaction-type="JTA">
+        <jta-data-source>jdbc/myDataSource</jta-data-source>
         <properties>
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
         </properties>
     </persistence-unit>
+
 </persistence>

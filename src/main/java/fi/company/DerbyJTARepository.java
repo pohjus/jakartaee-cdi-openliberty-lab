@@ -15,7 +15,7 @@ import javax.transaction.*;
 @Named("derbyjta")
 public class DerbyJTARepository implements CrudRepository {
 
-    @PersistenceContext(name = "myderbyunit-jta")
+    @PersistenceContext(unitName = "jta-jpa")
     EntityManager em;
 
     public List<String> getAll() {
