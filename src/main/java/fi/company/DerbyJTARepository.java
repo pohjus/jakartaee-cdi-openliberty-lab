@@ -18,6 +18,7 @@ public class DerbyJTARepository implements CrudRepository {
     @PersistenceContext(unitName = "jta-jpa")
     EntityManager em;
 
+    @SuppressWarnings("unchecked")
     public List<String> getAll() {
         Query query = em.createQuery("Select obj from Customer as obj");
         List<Customer> customers = query.getResultList();
@@ -29,6 +30,7 @@ public class DerbyJTARepository implements CrudRepository {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Customer> getAllCustomers() {
         Query query = em.createQuery("Select obj from Customer as obj");
         List<Customer> customers = query.getResultList();

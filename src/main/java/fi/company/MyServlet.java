@@ -23,7 +23,7 @@ public class MyServlet extends HttpServlet {
                         HttpServletResponse res) throws ServletException, IOException {
 
         testObjects(req, res);
-        // testStrings(req, res);
+        //testStrings(req, res);
 
     }
 

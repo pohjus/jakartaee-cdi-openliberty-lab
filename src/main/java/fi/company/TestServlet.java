@@ -20,6 +20,7 @@ public class TestServlet extends HttpServlet implements ServletContextListener {
     @PersistenceContext(name = "myderbyunit-jta")
     EntityManager em;
 
+    @SuppressWarnings("unchecked")
     public void saveAnotherCustomer(Customer c) {
         em.persist(new Customer("jack"));
         Query query = em.createQuery("Select obj from Customer as obj");
@@ -77,6 +78,7 @@ public class TestServlet extends HttpServlet implements ServletContextListener {
     }
 
 
+    @SuppressWarnings("unchecked")
     public void saveCustomer(Customer c) {
         System.out.println("********");
         // Open persistenceba.xml and it's unit called "donaldduck"

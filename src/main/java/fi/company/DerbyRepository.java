@@ -74,6 +74,7 @@ public class DerbyRepository implements CrudRepository {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Customer> getAllCustomers() {
         List<Customer> customers = null;
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa");

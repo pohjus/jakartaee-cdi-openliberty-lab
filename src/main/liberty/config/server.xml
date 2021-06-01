@@ -11,18 +11,39 @@
                   httpPort="8080"
                   httpsPort="9043"/>
 
-    <webApplication location="${project.artifactId}.war" contextRoot="/">
-    </webApplication>
 
-   <library id="derbyJDBCLib">
-      <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
-   </library>
+    <library id="derbyJDBCLib">
+        <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
+    </library>
+
+    <library id="sqliteJDBCLib">
+        <fileset dir="${shared.resource.dir}" includes="sqlite-jdbc*.jar"/>
+    </library>
+
+    <library id="mySqlLib">
+        <fileset dir="${shared.resource.dir}" includes="mysql-connector*.jar"/>
+    </library>
 
 
-  <dataSource jndiName="jdbc/myDataSource">
-      <jdbcDriver libraryRef="derbyJDBCLib" />
-      <properties.derby.embedded databaseName="this-is-my-datasource-db" createDatabase="create"/>
-  </dataSource>
+    <dataSource id="mydatasource" jndiName="jdbc/myDataSource">
+        <jdbcDriver libraryRef="derbyJDBCLib"/>
+        <properties.derby.embedded databaseName="this-is-my-datasource-db" createDatabase="create"/>
+    </dataSource>
 
+    <dataSource id="mysqlDatasource" jndiName="jdbc/mySQLDataSource">
+        <jdbcDriver libraryRef="mySqlLib"/>
+        <properties serverName="localhost" portNumber="3306"
+                    databaseName="test"
+                    user=""
+                    password=""/>
+    </dataSource>
+
+
+    <dataSource id="sqliteDatasource" jndiName="jdbc/sqliteDataSource" isolationLevel="TRANSACTION_SERIALIZABLE">
+        <jdbcDriver libraryRef="sqliteJDBCLib"/>
+        <properties URL="jdbc:sqlite:myTest.db"/>
+    </dataSource>
+
+    <logging hideMessage="SRVE9967W"/>
 
 </server>
