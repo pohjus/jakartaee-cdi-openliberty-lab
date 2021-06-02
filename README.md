@@ -1,2 +1,3 @@
-# jakartaee-cdi-openliberty-lab
-Simple demonstration of CDI usage in Open Liberty. Uses Jakarta EE 8.0, CDI and Java 16.
+# Open Liberty App Demos for Servlet / CDI / JPA 
+
+Simple demos of Servlet / CDI / JPA usage in Open Liberty with Java 11.
