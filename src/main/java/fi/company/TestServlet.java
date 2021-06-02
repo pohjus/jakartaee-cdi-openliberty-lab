@@ -43,12 +43,10 @@ public class TestServlet extends HttpServlet implements ServletContextListener {
         var URL = "jdbc:derby:this-is-my-db;create=true";
         var CLASS_NAME = "org.apache.derby.jdbc.EmbeddedDriver";
 
-        var CREATE_TABLE = """
-                          CREATE TABLE customers (id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY
-                                                  (START WITH 1, INCREMENT BY 1),
-                                                  name VARCHAR(1024),
-                                                  CONSTRAINT primary_key PRIMARY KEY (id))
-                          """;
+        var CREATE_TABLE = "CREATE TABLE customers (id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY" +
+                            "(START WITH 1, INCREMENT BY 1)," +
+                            "name VARCHAR(1024)," +
+                            "CONSTRAINT primary_key PRIMARY KEY (id))";
 
         var INSERT_SQL = "INSERT INTO customers (name) VALUES ('jack')";
         var SELECT_ALL = "SELECT * FROM customers";
